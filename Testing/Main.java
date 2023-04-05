@@ -113,7 +113,9 @@ public class Main {
 	public static void main(String args[]) {
 		 
 		 
+		String S2 = "S2 = " + 123 + 456 ;
 		
+        Integer.parseInt("x");
 		FileSystem fileSystem = new FileSystem();
 
 		fileSystem.addFileToDirectory("file1.txt", 100, "");

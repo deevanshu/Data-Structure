@@ -13,6 +13,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Queue;
+import java.util.Random;
+import java.util.Set;
+import java.util.Stack;
 import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.concurrent.ConcurrentHashMap;
@@ -545,6 +548,7 @@ public class InterfaceExample implements MyInterface{
 	}
 	public static int[] productExceptSelf(int[] nums) {
 
+		// 1234
 		int [] output = new int[nums.length];
 
 		output[0] = nums[0];
@@ -1162,8 +1166,245 @@ public class InterfaceExample implements MyInterface{
 		return ans;
 
 	}
+	public static String minRemoveToMakeValid(String s) {
+
+		Stack<Integer> st = new Stack<>();
+
+		for(int i = 0 ; i<s.length() ; i++){
+
+			if(s.charAt(i)=='('){  // only concerned with open nd close bracket not with letters
+
+				st.push(i);
+			}
+			else if(s.charAt(i)==')'){
+
+				if(st.empty()){
+
+					StringBuilder string = new StringBuilder(s);
+					string.setCharAt(i, '!');
+					s = string.toString();
+				}
+				else{    // as we r only pushing open bracket so either stack is empty or it contains open bracket , as not pushing letters and for                          close brackt only popping out 
+
+					st.pop();
+				}
+			}
+		}
+
+		// if elements remaing in stack those r invalid brackets
+
+		while(!st.empty()){
+			int i = st.pop();
+			StringBuilder string = new StringBuilder(s);
+			string.setCharAt(i, '!');
+			s = string.toString();
+		}
+		s = s.replaceAll("!" , "");
+		return s;
+	}
+
+	public static int[] shortestToChar(String s, char string) {
+
+		s.substring(5);
+		int n = s.length();
+		int[] arr = new int[n];
+		int c_position = -n;
+
+		for (int i = 0; i < n; i++) {
+			if(s.charAt(i) == string){
+				c_position = i;
+			}
+			arr[i] = i - c_position;
+		}
+
+		for (int i = n-1; i >= 0; i--) {
+			if(s.charAt(i) == string){
+				c_position = i;
+			}
+			arr[i] = Math.min(arr[i], Math.abs(i - c_position));
+		}
+		return arr; 
+
+	}
+
+
+	public static String gcdOfStrings(String str1, String str2) {
+
+		if(!(str1+str2).equals(str2+str1)){  // As str1 is multiple times adding str2
+			return "";
+		}
+
+		else if(str1.equals(str2)){ // base case
+			return str1;
+		}
+		else if(str1.length() > str2.length()){ // eliminating str2 from str1 again till we get eual substring or below case
+			return gcdOfStrings(str1.substring(str2.length()),  str2);
+		}
+		else{
+			return gcdOfStrings(str2.substring(str1.length()),  str1);
+		}
+	}
+
+	public static boolean backspaceCompare(String s, String t) {
+
+		for(int i = 0 ; i<s.length()-1 ; i++){
+
+			if(s.charAt(i+1)=='#'){
+				s = s.substring(0, i) + s.substring(i + 2);
+			}
+		}
+		s = s.replaceAll("#" , "");
+		for(int i = 0 ; i<t.length()-1 ; i++){
+
+			if(t.charAt(i+1)==('#')){
+				t = t.substring(0, i) + "#"+ t.substring(i + 1);
+			}
+		} 
+		t = t.replaceAll("#" , ""); 
+		return s.equals(t);
+	}
+
+	public static int[]  answerQueries(int numOfCustomer, int[][] queries)
+	{		// Write your code here
+		List<Integer>answer = new ArrayList<>();
+		HashMap<Integer,Integer> hm = new HashMap<>();
+		int twoQuery = 0;
+
+		for(int[] query : queries){
+
+			if(query[0]==1){
+				if(hm.containsKey(query[1])){
+					hm.put(query[1] , hm.get(query[1])+query[2]);
+				}
+				else{
+					hm.put(query[1] , query[2]);
+				}
+			}else{
+				twoQuery++;
+				int total = 0;
+				for(int i = query[1] ; i<=query[2] ; i++){
+					if(hm.containsKey(i)){
+						total = total + hm.get(i);
+					}
+				}
+				answer.add(total);
+			}
+		}
+		if(twoQuery==0){
+			int[] re = {0};
+			return re;
+		}
+		int res[] = new int[answer.size()];
+		for(int i = 0 ; i<answer.size() ; i++){
+			res[i] = answer.get(i);
+		}
+		return res;
+
+	}
+
+	public static int longestValidParentheses(String s) {
+		LinkedList<Integer> stack = new LinkedList<>();
+		int result = 0;
+		stack.push(-1);
+		for (int i = 0; i < s.length(); i++) {
+			if (s.charAt(i) == ')' && stack.size() > 1 && s.charAt(stack.peek()) == '(') {
+				stack.pop();
+				result = Math.max(result, i - stack.peek());
+			} else {
+				stack.push(i);
+			}
+		}
+		return result;
+	}
+
+	private static <E> E getRandomElement(Set<? extends E> set)
+	{
+
+		Random random = new Random();
+
+		// Generate a random number using nextInt
+		// method of the Random class.
+		int randomNumber = random.nextInt(set.size());
+
+		Iterator<? extends E> iterator = set.iterator();
+
+		int currentIndex = 0;
+		E randomElement = null;
+
+		// iterate the HashSet
+		while (iterator.hasNext()) {
+
+			randomElement = iterator.next();
+
+			// if current index is equal to random number
+			if (currentIndex == randomNumber)
+				return randomElement;
+
+			// increase the current index
+			currentIndex++;
+		}
+
+		return randomElement;
+	}
+	public static String longestCommonPrefix(String[] strs) {
+
+		String longestPref = strs[0];
+
+		for(int i = 1 ; i < strs.length ; i++){
+
+			while(strs[i].indexOf(longestPref)!=0){
+
+				longestPref = longestPref.substring(0 , longestPref.length()-1); 
+			}
+		}
+
+		return longestPref;
+	}
+
 	public static void main(String args[]) {
 
+
+		String art[] = {"flower","flow","flight"};
+		longestCommonPrefix(art);
+		int[] ar= {1,2,3,4}; 
+		productExceptSelf(ar);
+
+		Set<Integer> hs = new HashSet<Integer>();
+
+		hs.add(11);
+		hs.add(24);
+		hs.add(34);
+		hs.add(43);
+		hs.add(55);
+		hs.add(66);
+		hs.add(72);
+		hs.add(80);
+		hs.add(99);
+
+		System.out.println("Random element: "
+				+ getRandomElement(hs));
+
+		String[] y = {"1" , "2" , "15" , "-7" , "300"};
+		Arrays.sort(y);
+		System.out.println(y);
+
+
+		longestValidParentheses(")()())");
+
+		int[][]twoarray = {
+				{1,3,12},
+				{1,1,4},
+				{1,3,2}
+		};
+
+		int[] ansdd = answerQueries(5 , twoarray);
+		StringBuilder st = new StringBuilder();
+		st.reverse().toString();
+		backspaceCompare("ab##","c#d##");
+
+		gcdOfStrings("ABABAB","ABAB");
+		shortestToChar("loveleetcode", 'e');
+		minRemoveToMakeValid("lee(t(c)o)de)");
 		int mums[] = {1 ,2 ,-2, 2, 2};
 		longSubarrWthSumDivByK( mums,5 , 2);
 		int g1 = -2%5;
@@ -1173,8 +1414,7 @@ public class InterfaceExample implements MyInterface{
 		int numsy[] = {3,4,-1,1};
 		System.out.println(firstMissingPositive(numsy));
 
-		int[] ar= {1,2,3,4}; 
-		productExceptSelf(ar);
+
 
 		HashMap<String, Integer> hm = new HashMap<String, Integer>();
 
@@ -1266,21 +1506,21 @@ public class InterfaceExample implements MyInterface{
 		System.out.println(map);
 
 
-		Test ob1 = new Test();
+		//		Test ob1 = new Test();
 
-		System.out.println(ob1.x + " " + ob1.y);
+		//	System.out.println(ob1.x + " " + ob1.y);
 
 		// Creating a new reference variable ob2
 		// pointing to same address as ob1
-		Test ob2 = ob1;
+		//	Test ob2 = ob1;
 
 		// Any change made in ob2 will
 		// be reflected in ob1
-		ob2.x = 100;
-
-		System.out.println(ob1.x + " " + ob1.y);
-		System.out.println(ob2.x + " " + ob2.y);
-		System.out.println(ob1.hashCode() + " :" + ob2.hashCode());
+		//		ob2.x = 100;
+		//
+		//		System.out.println(ob1.x + " " + ob1.y);
+		//		System.out.println(ob2.x + " " + ob2.y);
+		//		System.out.println(ob1.hashCode() + " :" + ob2.hashCode());
 		int A6t[] = {1,2,1,3,4,2,3} ;
 		int n6t = 7,  k6t=4;
 		countDistinct(A6t , n6t , k6t);
@@ -1359,9 +1599,9 @@ public class InterfaceExample implements MyInterface{
 
 		string.toLowerCase();
 		boolean bool1 = string.endsWith("for"); 
-		HashSet<String> hs = new HashSet<>();
-		hs.add(string);
-		hs.contains(string);
+		HashSet<String> hs1 = new HashSet<>();
+		hs1.add(string);
+		hs1.contains(string);
 		System.out.println(rremove("geeksforgeek"));
 		int[] arr = {7 ,10, 4, 3, 20, 15};
 		int k1=3;
