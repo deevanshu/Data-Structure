@@ -8,9 +8,9 @@ class Q{
 	int i ;
 	boolean valueSet=false;
 
-	public void put(int i) {
+	public synchronized void put(int i) {
 
-		synchronized(this) {
+	//	synchronized(this) {
 
 			while(valueSet) {
 
@@ -33,7 +33,7 @@ class Q{
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-		}
+	//	}
 	}
 
 	public synchronized void get() {
