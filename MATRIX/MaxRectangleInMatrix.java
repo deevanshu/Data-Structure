@@ -54,7 +54,7 @@ public class MaxRectangleInMatrix {
 			}
 			if(hist[i] > hist[st.peek()]) {
 				left[i]=st.peek()+1;
-				st.push(i);
+				
 			}else {
 
 				while(st.size()>0 && hist[st.peek()] >= hist[i] ) {
@@ -66,8 +66,9 @@ public class MaxRectangleInMatrix {
 				else {
 					left[i]=0;
 				}
-				st.push(i);
 			}
+			
+			st.push(i);
 		}
 		st=new Stack<>();
 		for(int i=n;i>=0;i--) {
@@ -80,6 +81,7 @@ public class MaxRectangleInMatrix {
 			if(hist[i] > hist[st.peek()]) {
 				right[i]=st.peek()-1;
 				st.push(i);
+				
 			}else {
 
 				while(st.size()>0 && hist[st.peek()] >= hist[i] ) {

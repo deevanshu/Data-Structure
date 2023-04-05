@@ -1,27 +1,20 @@
 package com.datastructures.LINKLIST;
-
 class Node {
 
 	int data;
 	Node next;
-
 	Node(int d)
 	{
-
-
 		data = d;
 		next = null;
-
-
 	}
 }
 
 public class ReverseLinkList {
 
-
 	static Node head;
 	static Node newhead;
-
+	
 	static Node reverse(Node headnode)
 	{
 		Node curr=headnode , prev = null , nextnode;
@@ -32,16 +25,13 @@ public class ReverseLinkList {
 			prev=curr;
 			curr=nextnode;
 		}
-
 		return prev;
 	}
 
 	static void ReverseRecursive(Node p)
 	{
 		Node q = null ;
-
 		if(p.next==null) {
-
 			newhead=p;
 			return;
 		}
@@ -75,4 +65,3 @@ public class ReverseLinkList {
 		printList(newhead);
 	}
 }
-

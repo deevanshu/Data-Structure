@@ -27,19 +27,17 @@ class NodeHD{
 	NodeVT node ;
 
 	public NodeHD(int hd , NodeVT node){
-
 		this.hd = hd;
 		this.node = node ;
 	}
 }
-
 public class ViewsOfTree {
 
 	static NodeVT root;
 	public static void main(String[] args)
 	{
 		//	head = createBinaryTree();
-
+		TreeMap <Integer , ArrayList<Integer>> tm = new TreeMap<>();
 		ViewsOfTree tree = new ViewsOfTree();
 		tree.root = new NodeVT(1);
 		tree.root.left = new NodeVT(2);
@@ -67,10 +65,6 @@ public class ViewsOfTree {
 	//\
 	//8
 
-	private static void morrisTraversal(NodeVT root) {
-
-
-	}
 	private static void bottomView(NodeVT root) {
 		if(root==null) {
 			return ;
@@ -99,7 +93,7 @@ public class ViewsOfTree {
 		Set<Map.Entry<Integer , Integer>> entries= tm.entrySet();
 		ArrayList<Integer> ar = new ArrayList<Integer>();
 
-		for(Map.Entry<Integer, Integer> i : entries) {
+		for(Map.Entry<Integer, Integer> i : tm.entrySet()) {
 
 			ar.add(i.getValue());
 		}
@@ -107,35 +101,24 @@ public class ViewsOfTree {
 		System.err.println(ar);
 	}
 	private static void topView(NodeVT root) {
-
 		if(root==null) {
 			return ;
 		}
 		TreeMap <Integer , Integer> tm = new TreeMap<>();
-
 		Queue<NodeHD> qu = new LinkedList<>();
 		NodeHD head = new NodeHD(0 , root);
-
 		qu.add(head);
-
 		while(!qu.isEmpty()) {
-
 			NodeHD temp = qu.poll();
-
 			if(!tm.containsKey(temp.hd)) {
 
 				tm.put(temp.hd, temp.node.data);
 			}
-
 			if(temp.node.left!=null) {
-
 				qu.add(new NodeHD(temp.hd-1 , temp.node.left));
-
 			}
 			if(temp.node.right!=null) {
-
 				qu.add(new NodeHD(temp.hd+1 , temp.node.right));
-
 			}
 		}
 		Set<Map.Entry<Integer , Integer>> entries= tm.entrySet();
@@ -297,11 +280,11 @@ public class ViewsOfTree {
 
 
 			if(leftToRight) {
-				for(int i = 1; i<=size;i++) {
+				for(int i = 0; i<size;i++) {
 
 					NodeVT node = qu.poll();
 
-					temp[i -1]= node.data;
+					temp[i]= node.data;
 
 					if(node.left!=null) {
 
@@ -314,11 +297,11 @@ public class ViewsOfTree {
 				}
 			}
 			else {
-				for(int i = size; i>=1;i--) {
+				for(int i = size-1; i>=0;i--) {
 
 					NodeVT node = qu.poll();
 
-					temp[i - 1]= node.data;
+					temp[i]= node.data;
 
 					if(node.left!=null) {
 
@@ -352,8 +335,7 @@ public class ViewsOfTree {
 			return ar;
 		}
 		leftTraversalExceptRoot(root.left , ar);
-		LeafTraversal(root.left , ar);
-		LeafTraversal(root.right , ar);
+		LeafTraversal(root , ar);
 		rightTraversalExceptRoot(root.right , ar);
 		System.out.println(ar);
 
@@ -382,7 +364,9 @@ public class ViewsOfTree {
 
 				root = root.right;
 			}
-			root = root.left;
+			else {
+				root = root.left;
+			}
 		}
 		Collections.reverse(temp);
 		for(int i :temp){
@@ -440,8 +424,9 @@ public class ViewsOfTree {
 			if(root.left!=null) {
 
 				root = root.left;
+			}else {
+				root= root.right;
 			}
-			root= root.right;
 		}
 	}
 }

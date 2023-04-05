@@ -62,7 +62,7 @@ public class SumTree
 	{
 		SumTree tree = new SumTree();
 
-				tree.root = new NodeSTQ(62);
+
 		//		tree.root.left = new NodeSTQ(16);
 		//		tree.root.right = new NodeSTQ(46);
 		//		tree.root.left.left = new NodeSTQ(8);
@@ -80,12 +80,34 @@ public class SumTree
 		//		       8 4
 
 		//	62 16 15 N 8 4 7 N 8 4
-		tree.root = buildTree("62 16 15 N 8 4 7 N 8 4");                       
-		tree.toSumTree(tree.root);
+		//	tree.root = new NodeSTQ(62);
+		//	tree.root = buildTree("62 16 15 N 8 4 7 N 8 4");                       
+	//	tree.toSumTree(tree.root);
 
+		tree.root = new NodeSTQ(1);
+		tree.root.left = new NodeSTQ(2);
+		tree.root.right = new NodeSTQ(3);
+		NodeSTQ ans = tree.root;
+		int a = 2 , b=3;
+		int aDist = distanceFromLca(ans , a , 0);
+		int bDist = distanceFromLca(ans , b , 0);
 		System.out.println(res);
 	}
 
+	public static int distanceFromLca(NodeSTQ root , int val , int dist){
+
+		if(root==null){
+			return -1;
+		}
+		if(root.data==val){
+			return dist;
+		}
+		int left  = distanceFromLca(root.left  ,val , dist+1);
+		if(left!=-1){
+			return dist;
+		}
+		return distanceFromLca(root.right ,val , dist+1);
+	}
 	static NodeSTQ buildTree(String str){
 
 		if(str.length()==0 || str.charAt(0)=='N'){

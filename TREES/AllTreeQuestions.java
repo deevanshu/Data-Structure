@@ -1,5 +1,6 @@
 package com.datastructures.TREES;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -21,7 +22,6 @@ class NodeBT {
 }
 
 public class AllTreeQuestions {
-
 
 	static NodeBT root;
 	public static void main(String[] args)
@@ -52,19 +52,19 @@ public class AllTreeQuestions {
 		//     / \  / \   / \  / \
 		//	  nu nu 5  6 nu nu nu nu
 		//		    /
-		//		    7
+		//		   7
 		System.out.println(root);
 
-		    levelOrderTraversal(root);
+		levelOrderTraversal(root);
 		//		int height = HeightOfTree(root);
 		//		System.out.println(height);
 		//		NodeBT mirrorHead = mirrorImage(root);
 		//		System.out.println(mirrorHead);
 
 		sumRootToLeaf(root);
-		//		InOrderTraversal(root);  // Left  Node Right  LNR ;
-		//		PrOrderTraversal(root); //  Node  Left Right  NLR ;
-		//    	PostOrderTraversal(root);// Right Left Node   RLN ;
+		//		InOrderTraversal(root);  // Left  Node Right   LNR ;
+		//		PreOrderTraversal(root); //  Node  Left Right  NLR ;
+		//    	PostOrderTraversal(root);// Right Left Node    RLN ;
 
 
 		InOrderTraversalWithoutRecusrion(root);   // Left NodeBT Right LNR ;
@@ -98,7 +98,7 @@ public class AllTreeQuestions {
 		if (node.data == n1 || node.data == n2)
 			return node;
 		// Look for keys in left and right subtrees
-		NodeBT left_lca = lca(node.left, n1, n2);
+		NodeBT left_lca  = lca(node.left, n1, n2);
 		NodeBT right_lca = lca(node.right, n1, n2);
 
 		if (left_lca!=null && right_lca!=null)
@@ -186,8 +186,8 @@ public class AllTreeQuestions {
 		if(root2==null) {
 			return ;
 		}
-		LeafLevel(root2.left ,  level+1 );
-		LeafLevel(root2.right , level+1);
+		LeafLevel(root2.left  ,  level+1 );
+		LeafLevel(root2.right ,  level+1);
 
 		if(root2.left==null && root2.right==null){
 
@@ -233,7 +233,6 @@ public class AllTreeQuestions {
 		}
 		return;
 	}
-
 	static  int  maxlen;
 	static  int  maxsum;
 	private static void sumOfNodesOnLongestPath(NodeBT root2) {
@@ -267,11 +266,8 @@ public class AllTreeQuestions {
 
 		return;
 	}
-
-	private boolean     isbalanced(NodeBT root)
+	private boolean isbalanced(NodeBT root)
 	{
-		// Your code here
-
 		if (root == null){
 
 			return true;
@@ -288,36 +284,57 @@ public class AllTreeQuestions {
 		return false;
 	}
 	private static void PostOrderTraversalWithoutRecusrion(NodeBT root2) {
-		if(root2==null) {
+		//		if(root2==null) {
+		//
+		//			return;
+		//		}
+		//		NodeBT curr = root2;
+		//		while(s.size() > 0 || curr!=null) {
+		//
+		//
+		//			while(curr!=null) {
+		//
+		//				s.push(curr);
+		//				curr= curr.left;
+		//			}
+		//			NodeBT temp = s.peek().right;
+		//
+		//			if(temp==null) {
+		//				temp = s.pop();
+		//				System.out.println(temp.data);
+		//
+		//				while(s.size() > 0 && temp == s.peek().right) {
+		//
+		//					temp = s.pop();
+		//					System.out.println(temp.data);
+		//				}
+		//			}
+		//			else {
+		//				curr = temp;
+		//			}
+		//		}
+		//		Stack<NodeBT> s = new Stack<>();
 
-			return;
+		Stack<NodeBT> st = new Stack<>();
+		st.add(root2);
+		ArrayList<Integer> ans = new ArrayList<Integer>();
+
+		while(!st.empty()){
+
+			NodeBT temp = st.pop();
+			ans.add(temp.data);
+			if(temp.left!=null){
+
+				st.push(temp.left);
+			}
+			if(temp.right!=null){
+
+				st.push(temp.right);
+			}
 		}
-		Stack<NodeBT> s = new Stack<>();
-		NodeBT curr = root2;
-		while(s.size() > 0 || curr!=null) {
+		Collections.reverse(ans);
+		System.out.println(ans);
 
-
-			while(curr!=null) {
-
-				s.push(curr);
-				curr= curr.left;
-			}
-			NodeBT temp = s.peek().right;
-
-			if(temp==null) {
-				temp = s.pop();
-				System.out.println(temp.data);
-
-				while(s.size() > 0 && temp == s.peek().right) {
-
-					temp = s.pop();
-					System.out.println(temp.data);
-				}
-			}
-			else {
-				curr = temp;
-			}
-		}
 	}
 	private static void PreOrderTraversalWithoutRecusrion(NodeBT root2) {
 
@@ -369,17 +386,56 @@ public class AllTreeQuestions {
 		System.out.print(root2.data);
 
 	}
-	private static void PrOrderTraversal(NodeBT root2) {
+	private static void PreOrderTraversal(NodeBT root2) {
 		if(root2==null) {
 
 			return ;
 		}
 		System.out.print(root2.data);
-		PrOrderTraversal(root2.left);
-		PrOrderTraversal(root2.right);
+		PreOrderTraversal(root2.left);
+		PreOrderTraversal(root2.right);
 
 	}
+	private static void MorrisTraversal(NodeBT root){
 
+		ArrayList<Integer> memo = new ArrayList<>();
+		if(root==null){
+
+			return;
+		}
+
+		NodeBT current = root ;
+
+		while(current!=null){
+
+			if(current.left==null){
+
+				memo.add(current.data);
+				current = current.right;
+			}
+			else{
+
+				NodeBT prev = current.left ; 
+
+				while(prev.right!=null && prev.right!=current){
+
+					prev = prev.right;
+				}
+
+				if(prev.right==null){
+
+					prev.right = current;
+					current = current.left;   // LEFT
+				}
+				else{
+
+					prev.right = null;
+					memo.add(current.data);  // ROOT   INORDER MORRIS TRAVERSAL
+					current = current.right; // RIGHT
+				}
+			}
+		}
+	}
 	//         1
 	//       /   \
 	//      2     3

@@ -4,7 +4,8 @@ public class KthSmallestElement {
 	//
 	//	public static void main (String[] args) {
 	//
-	//		int mat[][] = { { 10, 20, 30, 40 },
+	//		int mat[][] = { 
+	//              { 10, 20, 30, 40 },
 	//				{ 15, 25, 35, 45 },
 	//				{ 25, 29, 37, 48 },
 	//				{ 32, 33, 39, 50 } };
@@ -76,7 +77,7 @@ public class KthSmallestElement {
 	{
 		int l = mat[0][0], r = mat[n - 1][n - 1];
 
-		while (l <=r) {
+		while (l <= r) {
 			int mid = l + (r - l) / 2;
 			int greaterThanOrEqualMid = getElementsGreaterThanOrEqual(mid, n, mat);
 

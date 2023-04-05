@@ -49,7 +49,7 @@ public class DetectAndDeleteLoop {
 			}
 			fastptr.next=null;
 		}
-		else {
+		else {  // Case where loop begins at first node i.e. circular link list
 			while(fastptr.next!=slowptr) {
 				fastptr=fastptr.next;
 			}

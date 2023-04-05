@@ -39,37 +39,36 @@ class FlattenLinkList
             result = a;
             result.down =  merge(a.down, b);
         }
- 
+        
         else
         {
             result = b;
             result.down = merge(a, b.down);
         }
- 
+        
         result.right = null;
         return result;
-        
-        
+              
 //     Iterative Way of Merge
 //        Node temp = new Node(0);
 //        Node res = temp; 
 //        
 //        while(a != null && b != null) {
 //            if(a.data < b.data) {
-//                temp.bottom = a; 
-//                temp = temp.bottom; 
-//                a = a.bottom; 
+//                temp.down = a; 
+//                temp = temp.down; 
+//                a = a.down; 
 //            }
 //            else {
-//                temp.bottom = b;
-//                temp = temp.bottom; 
-//                b = b.bottom; 
+//                temp.down = b;
+//                temp = temp.down; 
+//                b = b.down; 
 //            }
 //        }
 //        
-//        if(a != null) temp.bottom = a; 
-//        else temp.bottom = b;
-//        return res.bottom; 
+//        if(a != null) temp.down = a; 
+//        else temp.down = b;
+//        return res.down; 
     }
  
     Node flatten(Node root)

@@ -60,6 +60,14 @@ public class BinaryTreeToDoublyLinkedList
 		}
 	}
 
+	//             10
+	// 	       /        \
+	// 	      12        15
+	// 	     /  \      /  \
+	// 	    25  30     36  nu  
+	//     / \  / \   / \  
+	//	  nu nu nu nu nu nu 
+	
 	// Driver program to test above functions
 	public static void main(String[] args)
 	{

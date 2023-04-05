@@ -178,7 +178,5 @@ public class AlternatePositiveAndNegative {
 			arr[k]=arr[k-1];
 			arr[k-1]=temp;
 		}
-	}
-
-	
+	}	
 }

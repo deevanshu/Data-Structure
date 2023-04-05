@@ -26,6 +26,7 @@ public class NextPermutation {
 
 				peakFromRight = i;
 			}
+			
 			i=i+1;
 		}
 
@@ -37,6 +38,7 @@ public class NextPermutation {
 		int index = peakFromRight;
 
 		// check for special case 
+		
 		for(int j = peakFromRight+1 ; j<nums.length ; j++) {
 
 			if(nums[j] > nums[peakFromRight-1] && nums[j] < nums[peakFromRight]) {
@@ -58,7 +60,7 @@ public class NextPermutation {
 	private static void swap(int arr[] , int i, int j) {
 
 		int temp = arr[i];
-		arr[i]= arr[j];
+		arr[i]= arr[j]; 
 		arr[j]= temp;
 
 	}

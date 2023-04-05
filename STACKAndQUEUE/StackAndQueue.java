@@ -6,18 +6,12 @@ import java.util.Stack;
 
 public class StackAndQueue {
 
-
 	public static void main(String args[]) {
-
 
 		Stack<Integer> st = new Stack<>();
 
 		Queue<Integer> qu = new LinkedList<>();
-		if(st.peek()==2) {
-
-
-		}
-
+		
 		// 1 2 3 , top = 1 , remove = 1 
 		int x = 1;
 		while(x<=3) {

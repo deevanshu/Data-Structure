@@ -1,5 +1,4 @@
 package com.datastructures.TREES;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -51,7 +50,6 @@ public class MinimumTimeToBurnBinaryTree {
 
 	private static int burnTree(NodeBBT targetNode, HashMap<NodeBBT, NodeBBT> hm, HashMap<NodeBBT, Boolean> visited) {
 
-
 		Queue<NodeBBT> qu = new LinkedList<>();
 		Integer sec = 0;
 		qu.add(targetNode);
@@ -60,30 +58,37 @@ public class MinimumTimeToBurnBinaryTree {
 		while(!qu.isEmpty()) {
 
 			boolean flag = false;
-			NodeBBT temp = qu.poll();
+			int size = qu.size();
 
-			if(temp.left !=null && visited.get(temp.left)==false)
-			{
-				visited.put(temp.left , true);
-				qu.add(temp.left);
-				flag = true;
-			}
-			if(temp.right !=null && visited.get(temp.right)==false)
-			{
-				visited.put(temp.right , true);
-				qu.add(temp.right);
-				flag = true;
-			}
-			if(hm.get(temp)!=null && visited.get(hm.get(temp))==false)
-			{
-				visited.put(hm.get(temp) , true);
-				qu.add(hm.get(temp));
-				flag = true;
+			for(int i=0;i<size;i++){
+
+				NodeBBT temp = qu.poll();
+				visited.put(temp , true);
+				
+				if(temp.left !=null && visited.get(temp.left)==false)
+				{
+
+					qu.add(temp.left);
+					flag = true;
+				}
+
+				if(temp.right !=null && visited.get(temp.right)==false)
+				{
+
+					qu.add(temp.right);
+					flag = true;
+				}
+
+				if(hm.get(temp)!=null && visited.get(hm.get(temp))==false)
+				{
+
+					qu.add(hm.get(temp));
+					flag = true;
+				}
 			}
 			if(flag) {
 				sec++;
 			}
-
 		}
 
 		return sec;

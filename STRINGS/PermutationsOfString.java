@@ -8,16 +8,17 @@ public class PermutationsOfString {
 	static int count;
 	public static void main (String args[]) {
 
+
 		String s="ABC";   
 		ArrayList <String> outputList = new ArrayList<>();
 		permutations(outputList,0,s);
-	//	subsets(s , "" , outputList , 0 ,s.length()); // Backtracking not needed happening automatically for string as string is pass by value 
-		
+		//	subsets(s , "" , outputList , 0 ,s.length()); // Backtracking not needed happening automatically for string as string is pass by value 
+
 		int nums[] = {1,2,3,4};
-		
-        List<List<Integer>> ans1 = new ArrayList<>();
-     //   genSubsets(nums , 0 , new ArrayList<>() , ans1);
-     //   System.out.println( ans1);
+
+		List<List<Integer>> ans1 = new ArrayList<>();
+		//   genSubsets(nums , 0 , new ArrayList<>() , ans1);
+		//   System.out.println( ans1);
 	}	
 
 	public static void subsets(String S , String currentString , ArrayList<String> ans , int currentIndex , int n ){
@@ -29,14 +30,14 @@ public class PermutationsOfString {
 			return;
 		}
 
-
-		subsets(S , currentString+S.charAt(currentIndex) , ans ,currentIndex+1 , n );
+		subsets(S , currentString + S.charAt(currentIndex) , ans ,currentIndex+1 , n );
 		subsets(S , currentString , ans ,currentIndex+1 , n );
 
 		return;
 
 	}
-	public static void genSubsets(int[] nums , int currentIndex , List<Integer> currentSubset , List<List<Integer>> answer ){
+	
+    public static void genSubsets(int[] nums , int currentIndex , List<Integer> currentSubset , List<List<Integer>> answer ){
 
 		if(currentIndex >= nums.length){
 

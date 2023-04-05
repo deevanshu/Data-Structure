@@ -46,6 +46,7 @@ public class ReverseLinkListInGorupOfK {
 	private static Node reverseGroupOfK(Node head1 , int k) {
 
 		Node curr=head1 , prev = null , nextnode = null;
+		
 		int count=0;
 		while(curr!=null && count < k) {
 			nextnode=curr.next;

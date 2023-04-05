@@ -16,13 +16,18 @@ class NodeSTD
 public class DuplicateSubTreeInBinaryTree {
 
 	static NodeSTD root;
-
+	static NodeSTD subRoot;
+	
 	public static void main(String args[])
 	{
 		DuplicateSubTreeInBinaryTree tree = new DuplicateSubTreeInBinaryTree();
+		//DuplicateSubTreeInBinaryTree subRoot = new DuplicateSubTreeInBinaryTree();
+		tree.subRoot = new NodeSTD(1);
+//		tree.subRoot.left = new NodeSTD(1);
+//		tree.subRoot.right = new NodeSTD(5);
 
 		tree.root = new NodeSTD(1);
-		
+
 		tree.root.left = new NodeSTD(2);
 		tree.root.right = new NodeSTD(3);
 
@@ -43,13 +48,19 @@ public class DuplicateSubTreeInBinaryTree {
 		//	               / \    
 		//	               4  5
 
-		duplicateBinarySubTree(root);
+		//	duplicateBinarySubTree(root);
+		isSubtree(root , subRoot);
 	}
 	static private HashSet<String> set;
 	static boolean found = false;
+	static Boolean[] ar = {false};
+
+	public static boolean isSubtree(NodeSTD root, NodeSTD subRoot) {
+		duplicateBinarySubTree(root);
+		return ar[0];
+	}
 
 	private static int duplicateBinarySubTree(NodeSTD root) {
-
 
 		set = new HashSet<String>();
 		duplicate(root);
@@ -57,7 +68,6 @@ public class DuplicateSubTreeInBinaryTree {
 		{
 			System.out.println("Found");
 			return 1;
-			
 		}
 		System.out.println("Not Found");
 		return 0;
@@ -66,14 +76,16 @@ public class DuplicateSubTreeInBinaryTree {
 	private static String duplicate(NodeSTD root) {
 
 		StringBuilder s = new StringBuilder();
+		
 		if (root == null) {
 			return "";
 		}
 		if (root.left==null && root.right==null) return root.data+"";
-		
+
 		s.append(root.data+"");
 		s.append(duplicate(root.left));
 		s.append(duplicate(root.right));
+		
 		if (set.contains(s.toString())) {
 			found = true;
 		}
@@ -91,4 +103,3 @@ public class DuplicateSubTreeInBinaryTree {
 //		   4    57    2     
 //			         /  \    
 //			        4    5
-

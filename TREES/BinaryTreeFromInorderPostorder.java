@@ -2,26 +2,26 @@ package com.datastructures.TREES;
 
 import java.util.HashMap;
 
-class NodeIP {
+class NodeIPo {
 
 	int data;
-	NodeIP left;
-	NodeIP right;
+	NodeIPo left;
+	NodeIPo right;
 
-	public NodeIP(int data) {
+	public NodeIPo(int data) {
 
 		this.data = data;
 		this.left = null;
 		this.right = null;
 	}
 }
-public class BinaryTreeFromInorderPreorder {
-	static int preorderStartIndex = 0;
-
+public class BinaryTreeFromInorderPostorder {    
+	public static int postorderStartIndex = 0;
+	
 	public static void main(String[] args)
 	{
-		int inorder[]  = {1, 6, 8, 7}; // LRootR
-		int preorder[] = {1 ,6, 7, 8}; // RootLR
+		int inorder[]   = {9, 5, 2, 3, 4}; // LRootR
+		int postorder[] = {5, 9, 3, 4, 2}; // RLRoot
 		int n = 4;
 		HashMap <Integer , Integer> hm = new HashMap<>();
 
@@ -30,35 +30,47 @@ public class BinaryTreeFromInorderPreorder {
 			hm.put(inorder[i], i);
 		}
 
-		NodeIP ans = buildTree( inorder, preorder, n ,hm);
+		NodeIPo ans = buildTree( inorder, postorder, n ,hm);
+	}
+	public  static NodeIPo buildTree(int inorder[], int postorder[], int n , HashMap<Integer, Integer> hm)
+	{
+		postorderStartIndex = n-1;
+		NodeIPo ans = build(inorder, postorder, n ,hm);
+		return ans;
 	}
 
-	public static NodeIP buildTree(int inorder[], int preorder[], int n, HashMap<Integer, Integer> hm)
-	{
+	public static NodeIPo build(int[] inorder , int[] postorder , int n , HashMap <Integer , Integer> hm){
+
 		int inorderStartIndex=0;
 		int inorderEndIndex = n-1;
-		NodeIP ans = solve(inorder , preorder , preorderStartIndex , inorderStartIndex , inorderEndIndex  , n , hm);
-		return ans ; 
-	}
-	static NodeIP solve(int inorder[] ,int preorder[] , int preorderStartIndex , int inorderStartIndex ,int inorderEndIndex  , int n, HashMap<Integer, Integer> hm){
+		NodeIPo ans = solve(inorder , postorder , postorderStartIndex , inorderStartIndex , inorderEndIndex  , n , hm);
 
-		if(preorderStartIndex >= n || inorderStartIndex > inorderEndIndex){
+		return ans ;
+	}
+
+	static NodeIPo solve(int inorder[] ,int postorder[] , int postorderStartIndex , int inorderStartIndex ,int inorderEndIndex  , int n, HashMap<Integer, Integer> hm){
+
+		if(inorderStartIndex > inorderEndIndex  ||  postorderStartIndex < 0){
 			return null;
 		}
-		int data = preorder[ preorderStartIndex++] ;
-		NodeIP root = new NodeIP( data );
+		int data = postorder[ postorderStartIndex--] ;
+		NodeIPo root = new NodeIPo( data );
+
+		if (inorderStartIndex == inorderEndIndex)
+			return root;
+
 		int position = findPosition(data , hm);
 
-		root.left  = solve(inorder , preorder, preorderStartIndex , inorderStartIndex , position - 1  , n, hm);
-		root.right = solve(inorder , preorder, preorderStartIndex , position + 1   , inorderEndIndex  , n, hm);
+		root.right = solve(inorder , postorder , postorderStartIndex , position + 1   , inorderEndIndex  , n , hm);
+		root.left  = solve(inorder , postorder , postorderStartIndex , inorderStartIndex , position - 1  , n , hm);
 
 		return root;
 	}
+
 	static int findPosition(int data , HashMap<Integer, Integer> hm){
 
 		return hm.get(data);
-	}
-}
+	}}
 
 //     IMPORTANT TREE FROM PREORDER AND POSTORDER ::-
 
