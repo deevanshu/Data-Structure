@@ -23,8 +23,7 @@ public class MinimumPlatforms {
 		Arrays.sort(array,  (a , b) ->{
 			return a.start - b.start;
 		} );	
-		
-		System.out.println(array);
+
 
 		PriorityQueue<combinedArray> pq = new PriorityQueue<>(array.length, (a ,b) -> { return a.end - b.end ;} );
 

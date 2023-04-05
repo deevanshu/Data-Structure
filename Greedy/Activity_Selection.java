@@ -35,8 +35,8 @@ public class Activity_Selection {
 
 	public static void main(String args[]) {
 
-		int start[] =  {75250  ,50074  , 43659,8931 ,11273 , 27545,50879 ,77924};  // -> 0 ,1 , 3 ,5 , 5 ,8
-		int end[]   =  {112960 ,114515 ,81825 ,93424, 54316, 35533, 73383, 160252}; //  -> 
+		int start[] =  {75250  ,50074  , 43659,8931 ,11273 , 27545,50879  ,77924};  // -> 0 ,1 , 3 ,5 , 5 ,8
+		int end[]   =  {112960 ,114515 ,81825 ,93424, 54316, 35533, 73383 , 160252}; //  -> 
 
 		ArrayList<Meetings> meet = new ArrayList<>();
 		for(int i = 0; i < start.length; i++) {

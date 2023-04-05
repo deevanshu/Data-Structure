@@ -3,6 +3,18 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 
+class sortArray{
+
+	int start , end , number;
+
+	public sortArray(int start ,int end ,int number) {
+
+		this.end = end;
+		this.start = start;
+		this.number = number;
+	}
+}
+
 class MyComparatorArray implements Comparator<sortArray>{
 
 	@Override
@@ -16,6 +28,7 @@ class MyComparatorArray implements Comparator<sortArray>{
 		}
 	}
 }
+
 public class MaxTrainsForWhichStoppageCanBeProvided {
 
 	public static void main(String args[]) {
@@ -41,11 +54,7 @@ public class MaxTrainsForWhichStoppageCanBeProvided {
 		Arrays.sort(array, new MyComparatorArray());	
 		System.out.println(array);
 
-		//		int ar[] = new int[] {1,2,3,4};
-		//		int ar1[] = new int[4];
-		//		int arr1[][] = new int [2][3];
-
-		sortArray [] array1 = new sortArray[2];
+		sortArray [] array1 = new sortArray[m+1];
 		ArrayList<sortArray> ar111 = new ArrayList<sortArray>(Arrays.asList(array1));
 		int count=0;
 		for(int i=0 ; i<array.length ;i++) {
@@ -56,9 +65,8 @@ public class MaxTrainsForWhichStoppageCanBeProvided {
 			}
 			else {
 
-				if(ar111.get(array[i].number).end < array[i].start) {
+				if(ar111.get(array[i].number).end <= array[i].start) {
 					
-					ar111.remove(array[i].number);
 					ar111.set(array[i].number, array[i]);
 					count++;
 				}
@@ -66,17 +74,5 @@ public class MaxTrainsForWhichStoppageCanBeProvided {
 		}
 		
 		System.out.println(count);
-	}
-}
-
-class sortArray{
-
-	int start , end , number;
-
-	public sortArray(int start ,int end ,int number) {
-
-		this.end = end;
-		this.start = start;
-		this.number = number;
 	}
 }

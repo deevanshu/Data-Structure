@@ -44,12 +44,7 @@ public class HeapImplementation {
 		createMaxheap(arr);
 		printHeap(arr, arr.length);
 
-		// System.out.println("Min Heap :");
-		// createMinHeap(arr);
-		// printHeap(arr, arr.length);
-
 		int answer[] = sort(arr, 2);
-
 		System.out.println(answer);
 	}
 
@@ -132,7 +127,7 @@ public class HeapImplementation {
 	private static void maxHeapify(int[] arr, int n, int i) {
 
 		int largest = i;
-		int left = 2 * i + 1;
+		int left  = 2 * i + 1;
 		int right = 2 * i + 2;
 
 		if (left < n && arr[left] > arr[largest]) {
@@ -171,7 +166,6 @@ public class HeapImplementation {
 
 		if (left < arr.length) {
 			if (arr[left] == -1) {
-
 				head.left = null;
 			} else {
 
@@ -180,9 +174,7 @@ public class HeapImplementation {
 			}
 		}
 		if (right < arr.length) {
-
 			if (arr[right] == -1) {
-
 				head.right = null;
 			} else {
 

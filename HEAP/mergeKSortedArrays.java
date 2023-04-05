@@ -32,11 +32,10 @@ public class mergeKSortedArrays {
 
 	public static ArrayList<Integer> mergeKArrays(int[][] arr,int K) 
 	{
-
 		ArrayList<Integer> answer =  new ArrayList<Integer>();
 		int [] index = new int[K];
 
-		PriorityQueue<CustomSorts> minHeap = new PriorityQueue<>( new Comparator<>(){
+		PriorityQueue<CustomSorts> minHeap = new PriorityQueue<>( new Comparator<CustomSorts>(){
 
 			public int compare(CustomSorts s1, CustomSorts s2) {
 				if (s1.value1 > s2.value1)

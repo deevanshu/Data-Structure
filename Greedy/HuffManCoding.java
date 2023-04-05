@@ -36,7 +36,7 @@ public class HuffManCoding {
         }
  
         // if we go to left then add "0" to the code.
-        // if we go to the right add"1" to the code.
+        // if we go to the right add "1" to the code.
         
         printCode(root.left, s + "0");
         printCode(root.right, s + "1");
@@ -47,7 +47,7 @@ public class HuffManCoding {
 
 		int n = 6;
 		char[] charArray = { 'a', 'b', 'c', 'd', 'e', 'f' };
-		int[] charfreq = { 5, 9, 12, 13, 16, 45 };
+		int [] charfreq  = {  5 , 9  , 12 , 13 , 16 , 45  };
 
 		PriorityQueue<HuffmanNode> pQueue = new PriorityQueue<HuffmanNode>( n , new MyComparators());
 

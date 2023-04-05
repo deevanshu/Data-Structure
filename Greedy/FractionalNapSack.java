@@ -12,6 +12,7 @@ class Item{
 		this.weight=y;
 	}
 }
+
 class itemComparator implements Comparator<Item>{
 
 	@Override
@@ -33,7 +34,38 @@ public class FractionalNapSack {
 
 	private static double getMaxValue(Item arr[], int totalWeight)
 	{
-		Arrays.sort(arr , new itemComparator());
+		//	Arrays.sort(arr , new itemComparator());
+
+		//		Arrays.sort(arr , new Comparator<Item>() {
+		//			
+		//			@Override
+		//			public int compare(Item a, Item b) {
+		//
+		//				double r1 = (double)(a.val) / (double)(a.weight);
+		//				double r2 = (double)(b.val) / (double)(b.weight);
+		//				if(r1<r2) {
+		//					return 1;
+		//				}
+		//				else {
+		//
+		//					return -1;
+		//				}
+		//			}	
+		//		});
+
+		Arrays.sort(arr , (Item a, Item b) ->{
+
+			double r1 = (double)(a.val) / (double)(a.weight);
+			double r2 = (double)(b.val) / (double)(b.weight);
+			if(r1<r2) {
+				return 1;
+			}
+			else {
+
+				return -1;
+			}
+		});
+
 		int currWeight = 0;
 		int currValue  = 0;
 
@@ -45,13 +77,13 @@ public class FractionalNapSack {
 				currValue  = currValue  + arr[i].val ;
 			}
 			else {
-				
+
 				int remaining  = totalWeight - currWeight;
-				double finalValue = ( (double)arr[i].val / (double)arr[i].weight ) * (double)remaining ;
+				currValue  += ( (double)arr[i].val / (double)arr[i].weight ) * (double)remaining ;
 				break;
 			}
 		}
-		return (double)currValue;
+		return (double)currValue ;
 	}
 
 	public static void main(String[] args)
@@ -62,18 +94,18 @@ public class FractionalNapSack {
 		Item array[] = new Item[5];
 
 		for(int i=0;i<wt.length;i++) {
-			
+
 			array[i] = new Item(wt[i] , val[i]); 
 		}
-//		Item I1 = new Item(60  ,10);
-//		Item I2 = new Item(40  ,40);
-//		Item I3 = new Item(100 ,20);
-//		Item I4 = new Item(120 ,30);
-//
-//		array[0] = I1;
-//		array[1] = I2;
-//		array[2] = I3;
-//		array[3] = I4;
+		//		Item I1 = new Item(60  ,10);
+		//		Item I2 = new Item(40  ,40);
+		//		Item I3 = new Item(100 ,20);
+		//		Item I4 = new Item(120 ,30);
+		//
+		//		array[0] = I1;
+		//		array[1] = I2;
+		//		array[2] = I3;
+		//		array[3] = I4;
 
 		int totalWeight = 50;
 

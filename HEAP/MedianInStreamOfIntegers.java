@@ -4,7 +4,12 @@ import java.util.PriorityQueue;
 import java.util.Scanner;
 
 public class MedianInStreamOfIntegers {
-
+	
+	/// ROTTEN ORANGES ///
+	
+////	******************
+	
+	PriorityQueue<Integer> minHeap1 = new PriorityQueue<>();
 	public static void main(String args[]) {
 
 		PriorityQueue<Integer> minHeap = new PriorityQueue<>();
@@ -12,7 +17,7 @@ public class MedianInStreamOfIntegers {
 
 		Scanner sc  = new Scanner(System.in);
 
-		for(int i=0 ; i<4 ; i++) {
+		for(int i=0 ; i<1 ; i++) {
 
 			System.out.println("Enter "+ (i+1)+" Number :");
 			int num = sc.nextInt();
