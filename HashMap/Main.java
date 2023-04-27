@@ -1,5 +1,6 @@
 package com.datastructure.HashMap;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Main {
@@ -9,6 +10,9 @@ public class Main {
 
 		String s = "";
 		int k = 3;
+		int N = 7, K = 4;
+		int	A[] = {1,2,1,3,4,2,3};
+
 
 		LengthOfSubArray_WithSum_K();
 
@@ -16,7 +20,9 @@ public class Main {
 
 		LongestSubstring_Without_Repeating_Characters();
 
-		Largest_Subarray_0_1();
+		Count_Of_Subarray_0_1();
+
+		Length_Largest_Subarray_0_1();
 
 		CountOfSubString_Atmost_K_Unique_Characters(s , k);
 
@@ -30,40 +36,120 @@ public class Main {
 
 		LengthOfSubstring_EqualNoOf012(s);
 
+		CountDistinct_Elements_InWindow_Of_Size_K(A , N , K);
+
 	}
 
 
-	private static int Largest_Subarray_0_1() {
+	private static int Length_Largest_Subarray_0_1() {		
 
-		int arr[] = {10, 5, 2, 7, 1, 9} ;
-		int N = 15 ;
+		int arr[] = {0,1,0,1};
+		int k = 15 ;
 
-		// Your code here
-		int ans = 0 ; 
-		int sum = 0 ;
-		HashMap<Integer , Integer  > memo = new HashMap<>();
-
+		HashMap<Integer,Integer> memo = new HashMap<>();
 		memo.put(0 , -1);
+
+		int currSum=0 , max = 0;
 		for(int i = 0 ; i<arr.length ; i++){
 
-			if(arr[i]==0){
-
-				arr[i] = -1;
+			if(arr[i]==0) {
+				arr[i]=-1;
 			}
-			sum+=arr[i];
-			if(memo.containsKey(sum)){
 
-				ans = Math.max(ans , i - memo.get(sum));
+			currSum = currSum+arr[i];
+			if(memo.containsKey(currSum-k)){
+
+				max = Math.max(max , i - memo.get(currSum-k));
+			}
+			if(!memo.containsKey(currSum)){
+
+				memo.put(currSum , i);
+			}
+		}
+		return max;
+
+	}
 
 
+	private static ArrayList<Integer> CountDistinct_Elements_InWindow_Of_Size_K(int A[], int n, int k)
+	{
+
+		HashMap<Integer , Integer > memo = new HashMap<>();
+
+		int distinct = 0 ,start=0 ;
+		ArrayList<Integer> ans = new ArrayList<>();
+
+		for(int i = 0 ; i<n ; i++){
+
+			if( !((i - start) + 1 <= k)) {
+
+				ans.add(distinct);
+				int count =  memo.get(A[start]);
+				count = count - 1 ;
+				if(count==0){
+
+					memo.remove(A[start]);
+					distinct -- ;
+				}
+				else{
+
+					memo.put(A[start] , count);
+				}
+				start+=1 ;
+
+			}
+
+			if(memo.containsKey(A[i])){
+
+				memo.put(A[i] , memo.get(A[i]) + 1 );
 			}
 			else{
 
-				memo.put(sum , i);
+				memo.put(A[i] , 1);
+
+				distinct+=1 ;
 			}
 		}
 
+		ans.add(distinct);
 		return ans ; 
+
+	}
+
+	private static int Count_Of_Subarray_0_1() {
+
+		int arr[] = {0,1,0,1} ;
+		int N = 15 ;
+		int k =0;
+
+
+		HashMap<Integer , Integer> memo = new HashMap<>();
+
+		int currSum = 0  ;
+		int answer  = 0  ;
+		memo.put(0 , 1);
+
+		for(int i = 0 ; i < arr.length ; i++){ 
+
+			if(arr[i]==0) {
+				arr[i]=-1;
+			}
+			currSum += arr[i] ; 
+
+			if(memo.containsKey(currSum - k)){      
+
+				answer += memo.get(currSum - k);
+			}
+			if(memo.containsKey(currSum)){
+				memo.put(currSum , memo.get(currSum ) +1 );
+			}
+			else{
+
+				memo.put(currSum,1);
+			}
+		}
+
+		return answer;
 	}
 
 	private static int LongestSubstring_Without_Repeating_Characters() {
@@ -125,14 +211,12 @@ public class Main {
 		memo.put(0 , 1);
 
 		for(int i = 0 ; i < arr.length ; i++){           
-
 			currSum += arr[i] ; 
 
 			if(memo.containsKey(currSum - k)){      
 
 				answer += memo.get(currSum - k);
 			}
-
 			if(memo.containsKey(currSum)){
 				memo.put(currSum , memo.get(currSum ) +1 );
 			}
@@ -198,7 +282,6 @@ public class Main {
 			if(memo.containsKey(exp)) {
 
 				ans = Math.max(ans, i - memo.get(exp));
-				memo.put(exp, memo.get(exp));
 			}
 			else {
 				memo.put(exp, i);
@@ -335,7 +418,7 @@ public class Main {
 				memo.put(currChar, 1);
 				distinct+=1;
 			}
-			
+
 			while(distinct > k) {
 				Character disChar = s.charAt(release);
 				release++;
