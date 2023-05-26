@@ -41,17 +41,20 @@ class PrintSequenceRunnable implements Runnable{
 						e.printStackTrace();
 					}
 				}
-				if(remainder==1) {
-					System.out.println(Thread.currentThread().getName() + " Welcome ");	
-				}
-				else if(remainder==2) {
-					System.out.println(Thread.currentThread().getName() + "  To");	
-
-				}
-				else {
-					System.out.println(Thread.currentThread().getName() + " Freechrge");	
-
-				}
+				System.out.println(Thread.currentThread().getName() + " "+number);	
+				
+				
+//				if(remainder==1) {
+//					System.out.println(Thread.currentThread().getName() + " Welcome ");	
+//				}
+//				else if(remainder==2) {
+//					System.out.println(Thread.currentThread().getName() + "  To");	
+//
+//				}
+//				else {
+//					System.out.println(Thread.currentThread().getName() + " Freechrge");	
+//
+//				}
 				number++;
 				lock.notifyAll();
 			}

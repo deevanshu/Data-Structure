@@ -3,10 +3,12 @@ package com.java.Multithreading;
 public class Three_Threads {
 
 	public static void main(String[] args) {
-
-		Thread t1 = new Thread(new NumbersGenerator(1), "THREAD-1");
-		Thread t2 = new Thread(new NumbersGenerator(2), "THREAD-2");
-		Thread t3 = new Thread(new NumbersGenerator(0), "THREAD-3");
+		
+		 NumbersGenerator n1 =new NumbersGenerator(1);
+		 
+		Thread t1 = new Thread(n1, "1");
+		Thread t2 = new Thread(n1, "2");
+		Thread t3 = new Thread(n1, "0");
 
 		t1.start();
 		t2.start();
@@ -28,17 +30,17 @@ class NumbersGenerator implements Runnable{
 	}
 
 	public void run() {
-		synchronized (this) {
 			while(currNumber < TOTAL_NUMBERS_IN_SEQ-1) {
-				while (currNumber % NUMBER_OF_THREADS != remainder) {
+				synchronized (this) {
+				while (currNumber%NUMBER_OF_THREADS != Integer.parseInt(Thread.currentThread().getName())) {
 					try {
 						wait();
-					} catch (InterruptedException e) {
+					} catch (Exception e) {
 						e.printStackTrace();
 					}
 				}
 
-				System.out.println(Thread.currentThread().getName() + " : " + currNumber);
+				System.out.println("Thread "+Thread.currentThread().getName() + " : " + currNumber);
 				currNumber++;
 				notifyAll();
 			}
